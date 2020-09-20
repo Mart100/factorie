@@ -1,4 +1,6 @@
-class Player {
+import { Vector } from './vector'
+
+export class Player {
 	position: Vector
 	username: String
 	constructor(username:String) {

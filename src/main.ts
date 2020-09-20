@@ -2,6 +2,10 @@ import express from 'express'
 import Socket from 'socket.io'
 import { AddressInfo } from 'net'
 
+import { Factorie } from './scripts/factorie'
+import { Game } from './scripts/game'
+import { ErrorCode, ErrorCodes } from './scripts/errorCode'
+
 const app = express()
 
 const defaultPort:Number = 3000

@@ -1,11 +1,14 @@
-class Grid {
+import { Vector } from './vector'
+import { Building } from './building'
+
+export class Grid {
 	tiles: Array<Array<GridTile>>
 	constructor() {
 		this.tiles = []
 	}
 }
 
-class GridTile {
+export class GridTile {
 	pos: Vector
 	building: Building | undefined
 
