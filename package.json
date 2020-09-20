@@ -1,0 +1,47 @@
+{
+  "name": "factorie",
+  "version": "1.0.0",
+  "description": "A multiplayer factory building game .io styled",
+  "main": "dist/main.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "gulp-util": "^3.0.8",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.8",
+    "@types/socket.io": "^2.1.11",
+    "browserify": "^16.5.2",
+    "gulp": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-uglify": "^3.0.2",
+    "jest": "^26.4.2",
+    "tsify": "^5.0.2",
+    "typescript": "^4.0.3",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "scripts": {
+    "start": "nodemon",
+    "gulp": "gulp",
+    "start-watch": "npm run watch && npm run watch-node",
+    "watch-node": "nodemon .",
+    "build": "npm run build-sass && npm run build-tsc",
+    "watch": "npm run watch-sass && npm run watch-tsc",
+    "watch-sass": "sass --watch src/public/styles:dist/public/styles",
+    "watch-tsc": "tsc -w -p src",
+    "build-sass": "sass src/public/styles:dist/public/styles",
+    "build-tsc": "tsc -p src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mart100/factorie.git"
+  },
+  "author": "Mart van Enckevort",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mart100/factorie/issues"
+  },
+  "homepage": "https://github.com/Mart100/factorie#readme"
+}
