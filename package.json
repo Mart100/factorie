@@ -4,16 +4,21 @@
   "description": "A multiplayer factory building game .io styled",
   "main": "dist/main.js",
   "dependencies": {
-    "@types/jquery": "^3.5.1",
     "express": "^4.17.1",
-    "gulp-util": "^3.0.8",
     "jquery": "^3.5.1",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
+    "@types/jquery": "^3.5.1",
+    "merge-stream": "^2.0.0",
+    "gulp-tap": "^2.0.0",
+    "gulp-util": "^3.0.8",
+    "event-stream": "^4.0.1",
     "@types/express": "^4.17.8",
     "@types/socket.io": "^2.1.11",
     "browserify": "^16.5.2",
+    "glob": "^7.1.6",
     "gulp": "^4.0.2",
     "gulp-sass": "^4.1.0",
     "gulp-sourcemaps": "^2.6.5",
@@ -21,6 +26,7 @@
     "gulp-uglify": "^3.0.2",
     "jest": "^26.4.2",
     "node-sass": "^4.14.1",
+    "path": "^0.12.7",
     "tsify": "^5.0.2",
     "typescript": "^4.0.3",
     "vinyl-buffer": "^1.0.1",

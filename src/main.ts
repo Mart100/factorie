@@ -5,6 +5,7 @@ import { AddressInfo } from 'net'
 import { Factorie } from './scripts/factorie'
 import { Game } from './scripts/game'
 import { ErrorCode, ErrorCodes } from './scripts/errorCode'
+import { Player } from './scripts/player'
 
 const app = express()
 
@@ -38,13 +39,13 @@ io.on('connection', async (socket) => {
 
 
 	// object the user sends to the server whenever they try to join a game
-	interface joinGameRequest {
-		gameID: String
-		password?: String
-		username: String
+	interface JoinGameRequestData {
+		gameID: string
+		password?: string
+		username: string
 	}
 
-	socket.on('joinGame', async (joinGameData:joinGameRequest, callback) => {
+	socket.on('joinGame', async (joinGameData:JoinGameRequestData, callback) => {
 
 		let game:Game|undefined = factorie.games.find((g) => g.id == joinGameData.gameID)
 
@@ -66,6 +67,39 @@ io.on('connection', async (socket) => {
 
 	})
 
+	// object the user sends to the server whenver they try to create a new game
+	interface createGameRequestData {
+		gameID: string
+		private: boolean
+		password?: string
+		username: string
+	}
+
+	socket.on('createGame', async(createGameData:createGameRequestData, callback) => {
+
+		// try to find if game already exists
+		let game:Game|undefined = factorie.games.find((g) => g.id == createGameData.gameID)
+		if(game != undefined) return callback(new ErrorCode(101, ErrorCodes.x101))
+
+		game = new Game({
+			id: createGameData.gameID,
+			private: createGameData.private,
+			password: createGameData.password,
+		})
+
+		factorie.addNewGame(game)
+
+		let player = new Player({
+			id: socket.id,
+			username: createGameData.username
+		})
+		
+		game.addPlayer(player)
+
+		console.log('Yo this just kinda fired::createGame')
+
+
+	})
+
 
 })
-

@@ -1,3 +1,5 @@
+"use strict";
+
 var gulp = require("gulp");
 var browserify = require("browserify");
 var source = require("vinyl-source-stream");
@@ -7,7 +9,12 @@ var uglify = require("gulp-uglify");
 var sass = require('gulp-sass');
 var sourcemaps = require("gulp-sourcemaps");
 var buffer = require("vinyl-buffer");
+var glob = require('glob');
+var es = require('event-stream');
 var gutil = require('gulp-util');
+var tap = require('gulp-tap');
+var path = require('path');
+var merge = require('merge-stream');
 var paths = {
   pages: ["src/public/*.html"],
 };
@@ -18,7 +25,7 @@ sass.compiler = require('node-sass');
 //=========COPY_HTML==========
 //============================
 function watch_copy_html() {
-	return gulp.watch(paths.pages, copy_html()) 
+	return gulp.watch(paths.pages, copy_html) 
 }
 function copy_html() {
 	return gulp.src(paths.pages).pipe(gulp.dest("./dist/public"))
@@ -29,22 +36,18 @@ function copy_html() {
 //=========PUBLIC_TS==========
 //============================
 function watch_public_ts() {
-	return gulp.watch("./src/public/scripts/*", public_ts())
+	return gulp.watch("./src/public/scripts/*", public_ts)
 }
 function public_ts() {
+	var files = glob.sync('./src/public/scripts/*.ts');
 	return browserify({
-		basedir: "./src/public/scripts",
 		debug: true,
+		entries: files,
 	})
 	.plugin(tsify)
 	.bundle()
 	.pipe(source("bundle.js"))
-	.pipe(buffer())
-	.pipe(sourcemaps.init({ loadMaps: true }))
-	.pipe(uglify())
-	.on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
-	.pipe(sourcemaps.write("./"))
-	.pipe(gulp.dest("./dist/public/scripts"))
+	.pipe(gulp.dest("dist/public"));
 }
 
 
@@ -52,7 +55,7 @@ function public_ts() {
 //=========SERVER_TS==========
 //============================
 function watch_server_ts() {
-	return gulp.watch("./src/*.ts", server_ts())
+	return gulp.watch("./src/*.ts", server_ts)
 }
 function server_ts() {
 	var tsProject = ts.createProject("./src/tsconfig.json");

@@ -23,4 +23,8 @@ export class Game {
 		this.grid = new Grid()
 
 	}
+
+	addPlayer(newPlayer:Player) {
+		this.players.push(newPlayer)
+	}
 }

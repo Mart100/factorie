@@ -7,4 +7,8 @@ export class Factorie {
 	constructor() {
 
 	}
+
+	addNewGame(newGame:Game) {
+		this.games.push(newGame)
+	}
 }

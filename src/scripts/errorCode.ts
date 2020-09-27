@@ -1,5 +1,6 @@
 export enum ErrorCodes {
-	x100 = "Game was not found"
+	x100 = "Game was not found",
+	x101 = "Game's name already in use"
 }
 
 export class ErrorCode {
